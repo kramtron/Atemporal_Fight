@@ -78,7 +78,7 @@ public class MovementController : MonoBehaviour
     {
         if (speed < 0)
         {
-            transform.position += new Vector3(0.1f, 0, 0) * Time.deltaTime;
+            transform.position += new Vector3(12.1f, 0, 0) * Time.deltaTime;
             _animator.SetTrigger(BACK);
 
             return CanMoveLeft();
@@ -86,7 +86,7 @@ public class MovementController : MonoBehaviour
         if (speed > 0)
         {
            
-            transform.position += new Vector3(-0.1f, 0, 0)*Time.deltaTime;
+            transform.position += new Vector3(-12.1f, 0, 0)*Time.deltaTime;
 
             _animator.SetTrigger(FRONT);
 
