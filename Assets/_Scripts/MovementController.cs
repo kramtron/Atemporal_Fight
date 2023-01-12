@@ -20,6 +20,9 @@ public class MovementController : MonoBehaviour
     const string ATTACK_HIGH_QUICK = "AttackHighQuick";
     const string DIE = "Die";
     const string WIN = "Win";
+    const string BACK = "Back";
+    const string BACK2 = "Back2";
+    const string FRONT = "Front";
 
     #endregion
 
@@ -41,17 +44,25 @@ public class MovementController : MonoBehaviour
     }
 
     
-    public void TryMove(float speed)
+    public void TryMove(float speed )
     {
-        
+
 
         if (CanMove(speed))
-        {       
+        {
             _animator.SetFloat(SPEED, _id == 1 ? -speed : speed);
+
         }
-            
+
         else
+        {
             _animator.SetFloat(SPEED, 0);
+
+            _animator.SetTrigger(BACK2);
+
+        }
+
+        _animator.SetTrigger(BACK2);
 
 
     }
@@ -66,9 +77,21 @@ public class MovementController : MonoBehaviour
     bool CanMove(float speed)
     {
         if (speed < 0)
+        {
+            transform.position += new Vector3(0.1f, 0, 0);
+            _animator.SetTrigger(BACK);
+
             return CanMoveLeft();
+        }
         if (speed > 0)
+        {
+           
+            transform.position += new Vector3(-0.1f, 0, 0);
+
+            _animator.SetTrigger(FRONT);
+
             return CanMoveRight();
+        }
 
         return true;
     }
@@ -79,10 +102,14 @@ public class MovementController : MonoBehaviour
             return false;
 
         if (_otherPlayer == null)
-            return true;
+        return true;
+        
 
         if (_id == 1 && transform.position.x <= (_otherPlayer.position.x + SafetyDistance))
             return false;
+
+
+        
 
         return true;
     }
@@ -92,10 +119,15 @@ public class MovementController : MonoBehaviour
             return false;
 
         if (_otherPlayer == null)
+        {
             return true;
+
+        }
 
         if (_id == 0 && transform.position.x >= (_otherPlayer.position.x - SafetyDistance))
             return false;
+
+
 
         return true;
     }
